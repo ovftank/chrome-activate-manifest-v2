@@ -1,0 +1,63 @@
+name: Build, Release, and Upload
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up MinGW
+        run: |
+          choco install mingw
+
+      - name: Build the application
+        run: |
+          windres resource.rc -o resource.o
+          gcc -o ChromeActivateManifestV2.exe main.c resource.o -mwindows
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ChromeActivateManifestV2
+          path: ChromeActivateManifestV2.exe
+
+      - name: Create Release Description
+        id: create_description
+        run: |
+          echo "## CHROME ACTIVATE MANIFEST V2 🚀" > release_description.txt
+          echo "" >> release_description.txt
+          echo "Ứng dụng Windows này giúp KÍCH HOẠT VÀ SỬ DỤNG CÁC EXTENSION CŨ (SỬ DỤNG MANIFEST V2) TRÊN TRÌNH DUYỆT GOOGLE CHROME. 🔧" >> release_description.txt
+          echo "" >> release_description.txt
+          echo "### HƯỚNG DẪN SỬ DỤNG 💾" >> release_description.txt
+          echo "" >> release_description.txt
+          echo "1. **TẢI VỀ ỨNG DỤNG**:" >> release_description.txt
+          echo "   - Tải tệp \`ChromeActivateManifestV2.exe\` từ [BẢN PHÁT HÀNH](https://github.com/${{ github.repository }}/releases) 📥." >> release_description.txt
+          echo "" >> release_description.txt
+          echo "2. **CHẠY ỨNG DỤNG VỚI QUYỀN ADMIN**:" >> release_description.txt
+          echo "   - Nhấp chuột phải vào tệp \`ChromeActivateManifestV2.exe\` và chọn **\"Run as administrator\"**. ⚙️" >> release_description.txt
+          echo "   - Xong :>" >> release_description.txt
+
+      - name: Create a Tag
+        id: create_tag
+        run: |
+          git tag -a v1 -m "Release version 1"
+          git push origin v1
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ChromeActivateManifestV2.exe
+          body_path: release_description.txt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
