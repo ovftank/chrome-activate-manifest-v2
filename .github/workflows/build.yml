@@ -2,6 +2,8 @@ name: Build, Release, and Upload
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*.*.*'
 
@@ -37,14 +39,6 @@ jobs:
           echo "" >> release_description.txt
           echo "Ứng dụng Windows này giúp KÍCH HOẠT VÀ SỬ DỤNG CÁC EXTENSION CŨ (SỬ DỤNG MANIFEST V2) TRÊN TRÌNH DUYỆT GOOGLE CHROME. 🔧" >> release_description.txt
           echo "" >> release_description.txt
-          echo "### HƯỚNG DẪN SỬ DỤNG 💾" >> release_description.txt
-          echo "" >> release_description.txt
-          echo "1. **TẢI VỀ ỨNG DỤNG**:" >> release_description.txt
-          echo "   - Tải tệp \`ChromeActivateManifestV2.exe\` tại [đây](https://github.com/${{ github.repository }}/releases) 📥." >> release_description.txt
-          echo "" >> release_description.txt
-          echo "2. **CHẠY ỨNG DỤNG VỚI QUYỀN ADMIN**:" >> release_description.txt
-          echo "   - Nhấp chuột phải vào tệp \`ChromeActivateManifestV2.exe\` và chọn **\"Run as administrator\"**. ⚙️" >> release_description.txt
-          echo "   - Xong :>" >> release_description.txt
 
       - name: Configure Git
         run: |
