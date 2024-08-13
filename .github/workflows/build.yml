@@ -2,13 +2,8 @@ name: Build, Release, and Upload
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*.*.*'
-  pull_request:
-    branches:
-      - main
 
 jobs:
   build:
@@ -60,5 +55,7 @@ jobs:
         with:
           files: ChromeActivateManifestV2.exe
           body_path: release_description.txt
+          name: Release ${{ github.ref }}
+          tag_name: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
