@@ -47,6 +47,11 @@ jobs:
           echo "   - Nhấp chuột phải vào tệp \`ChromeActivateManifestV2.exe\` và chọn **\"Run as administrator\"**. ⚙️" >> release_description.txt
           echo "   - Xong :>" >> release_description.txt
 
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
       - name: Create a Tag
         id: create_tag
         run: |
