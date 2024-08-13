@@ -54,12 +54,6 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Create a Tag
-        id: create_tag
-        run: |
-          git tag -a v1 -m "Release version 1"
-          git push origin v1
-
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v2
