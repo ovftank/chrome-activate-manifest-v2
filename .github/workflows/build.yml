@@ -57,7 +57,7 @@ jobs:
         with:
           files: ChromeActivateManifestV2.exe
           body_path: release_description.txt
-          name: Release ${{ github.ref }}
-          tag_name: ${{ github.ref }}
+          name: Release v1.0.0
+          tag_name: v1.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
