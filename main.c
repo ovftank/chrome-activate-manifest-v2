@@ -4,6 +4,6 @@
 
 int main() {
     system("reg add \"HKLM\\Software\\Policies\\Google\\Chrome\" /v ExtensionManifestV2Availability /t REG_DWORD /d 2 /f");
-    ShellExecute(0, "open", "https://github.com/tripleseven190504", 0, 0, SW_SHOWNORMAL);
+    ShellExecute(0, "open", "https://github.com/ovftank", 0, 0, SW_SHOWNORMAL);
     return 0;
 }
